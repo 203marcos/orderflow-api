@@ -47,3 +47,12 @@ Examples:
 - Keep commits readable.
 - If the task is not finished, keep it in `develop` until it is ready.
 
+## Architecture Rules
+
+- Keep business rules inside `domain`.
+- Put auth use cases and ports inside `application.auth`.
+- Put controllers and inbound request handling inside `adapter.in`.
+- Put persistence and external clients inside `adapter.out`.
+- Avoid making `domain` depend on Spring, JPA, or web classes.
+- When in doubt, make the dependency point toward the core, not away from it.
+

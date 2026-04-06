@@ -1,6 +1,6 @@
-package com.marcosdias.orderflowapi.payment;
+package com.marcosdias.orderflowapi.domain.payment;
 
-import com.marcosdias.orderflowapi.order.Order;
+import com.marcosdias.orderflowapi.domain.order.Order;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -84,4 +84,5 @@ public class Payment {
         return createdAt;
     }
 }
+
 

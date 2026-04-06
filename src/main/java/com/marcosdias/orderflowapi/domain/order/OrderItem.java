@@ -1,4 +1,4 @@
-package com.marcosdias.orderflowapi.order;
+package com.marcosdias.orderflowapi.domain.order;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -81,4 +81,5 @@ public class OrderItem {
         this.order = order;
     }
 }
+
 
