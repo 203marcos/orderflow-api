@@ -1,29 +1,58 @@
 # OrderFlow API
 
-Business-oriented backend API to manage orders with authentication, external integrations, resilience patterns, and cloud-ready delivery.
+Backend project focused on a realistic order flow: authentication, order lifecycle, external integrations, resilience, and cloud-ready delivery.
 
-## Day 1 Goal (Current Stage)
+## Project Status
 
-Define the product scope and domain foundations before coding the full flow.
+Current stage: **Day 1 completed**.
 
-- Define bounded context and ubiquitous language.
-- Define entities and relationships.
-- Define core business rules and status transitions.
-- Freeze MVP scope for the next implementation days.
+What is already done:
+- Domain model and initial entities.
+- Core business rules and order status transitions.
+- MVP scope definition for the next implementation days.
+- Repository workflow (`main`, `develop`, `feature/*`).
 
-## MVP Features (Planned)
+Reference docs:
+- `docs/domain-model.md`
+- `docs/business-rules.md`
+- `docs/mvp-scope-day1.md`
 
-- User registration and login with JWT.
-- Orders creation and tracking.
-- Order status update flow.
-- CEP/address external integration.
-- Shipping quote external integration.
-- Payment simulation.
-- Repeated query caching.
-- Swagger/OpenAPI docs.
-- Unit and integration tests.
+## Why this project
 
-## API Endpoints (Target)
+I built this repository to practice backend skills expected in junior Java positions:
+- Building APIs around business rules, not only CRUD.
+- Integrating external services (CEP and shipping).
+- Applying security, persistence, cache, testing, and delivery practices.
+
+## Tech Stack (current repository)
+
+- Java 21
+- Spring Boot
+- Spring Web
+- Spring Security
+- Spring Data JPA
+- Flyway
+- PostgreSQL driver
+- Redis integration
+- JUnit 5
+- Gradle Wrapper
+
+## Domain Highlights
+
+Main concepts modeled so far:
+- `User`
+- `Address`
+- `Order`
+- `OrderItem`
+- `Payment`
+
+Main enums modeled so far:
+- `Role`
+- `OrderStatus`
+- `PaymentMethod`
+- `PaymentStatus`
+
+## Planned API Endpoints (MVP)
 
 - `POST /auth/register`
 - `POST /auth/login`
@@ -36,25 +65,38 @@ Define the product scope and domain foundations before coding the full flow.
 - `GET /address/{cep}`
 - `POST /payments/charge`
 
-## Branching Strategy
+## Roadmap (7 days)
 
-This project follows a simple Git Flow style:
+- [x] Day 1: domain, entities, business rules, MVP scope.
+- [ ] Day 2: authentication, user module, JWT security.
+- [ ] Day 3: order module + PostgreSQL persistence with Flyway.
+- [ ] Day 4: CEP and shipping integrations with timeout/retry/fallback.
+- [ ] Day 5: payment flow + Redis cache.
+- [ ] Day 6: unit/integration tests + Swagger docs.
+- [ ] Day 7: Docker + GitHub Actions + cloud deploy.
 
-- `main`: stable production-ready code.
-- `develop`: integration branch for completed features.
-- `feature/*`: implementation branches (for example `feature/day1-domain-foundation`).
+## Local Run
 
-Flow per feature:
+At this stage, the project is in foundation mode (Day 1), but the app and tests can run.
 
-1. Branch from `develop`.
-2. Develop and commit in small units.
-3. Merge feature into `develop`.
-4. When stable, merge `develop` into `main`.
+```powershell
+.\gradlew.bat test
+.\gradlew.bat bootRun
+```
 
-## Commit Convention
+## Git Workflow
 
-Use English Conventional Commits:
+- `main`: stable branch.
+- `develop`: integration branch.
+- `feature/*`: implementation branches.
 
+Default flow:
+1. Create a feature branch from `develop`.
+2. Commit in small units.
+3. Merge into `develop`.
+4. Promote `develop` into `main`.
+
+Commit style:
 - `feat: ...`
 - `fix: ...`
 - `docs: ...`
@@ -62,17 +104,4 @@ Use English Conventional Commits:
 - `chore: ...`
 - `ci: ...`
 
-Example:
-
-`feat: add order aggregate and status transition rules`
-
-## Day-by-Day Plan
-
-- Day 1: domain, entities, business rules, MVP scope.
-- Day 2: auth, user module, JWT security.
-- Day 3: order module and PostgreSQL persistence with Flyway.
-- Day 4: CEP and shipping integrations with timeout/retry/fallback.
-- Day 5: payment flow and Redis cache.
-- Day 6: tests and Swagger documentation.
-- Day 7: Docker, GitHub Actions, and cloud deployment.
 
