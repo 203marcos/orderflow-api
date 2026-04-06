@@ -1,0 +1,104 @@
+Projeto sugerido: API de negocio com integracoes externas, resiliencia e deploy em cloud
+
+Resumo em uma frase
+Faça uma API de negocio com integracoes externas, resiliencia e deploy em cloud. Isso vale mais para o seu perfil do que criar mais um CRUD comum.
+
+Nome do projeto
+OrderFlow API
+
+Ideia do projeto
+Uma API de pedidos para um negocio realista, com autenticacao, processamento de pedidos, integracao com servicos externos e infraestrutura pronta para cloud.
+
+Objetivo do MVP
+- Criar usuarios e autenticar com JWT.
+- Criar e acompanhar pedidos.
+- Integrar uma API de frete.
+- Integrar uma API de CEP/endereco.
+- Simular ou integrar um meio de pagamento.
+- Cachear consultas repetidas.
+- Publicar a aplicacao em cloud.
+
+Features do MVP
+- Cadastro e login de usuario.
+- CRUD de pedidos.
+- Consulta de pedido por id.
+- Atualizacao de status do pedido.
+- Integracao com API externa de CEP.
+- Integracao com API externa de frete.
+- Integracao com servico de pagamento ou simulacao realista.
+- Validacao de erros, timeout, retry e fallback.
+- Documentacao com Swagger/OpenAPI.
+- Testes unitarios e de integracao.
+
+Stack exata
+- Java 21
+- Spring Boot
+- Spring Web
+- Spring Security com JWT
+- Spring Data JPA
+- PostgreSQL
+- Redis
+- Flyway
+- OpenFeign ou RestTemplate/WebClient
+- Maven
+- JUnit 5
+- Mockito
+- Docker e Docker Compose
+- GitHub Actions
+- AWS com RDS, ECS ou EC2, S3 e CloudWatch
+
+Estrutura de pastas
+- auth
+- user
+- order
+- payment
+- shipping
+- address
+- security
+- config
+- exception
+- dto
+- repository
+- service
+- controller
+
+Endpoints principais
+- POST /auth/login
+- POST /auth/register
+- GET /users/me
+- POST /orders
+- GET /orders/{id}
+- GET /orders
+- PATCH /orders/{id}/status
+- GET /shipping/quote?cep=xxxxx-xxx
+- GET /address/{cep}
+- POST /payments/charge
+
+Plano de execucao em 7 dias
+Dia 1: Definir dominio, entidades, regras de negocio e escopo do MVP.
+Dia 2: Implementar autenticao, usuario e seguranca JWT.
+Dia 3: Implementar pedidos e persistencia no PostgreSQL com Flyway.
+Dia 4: Integrar APIs externas de CEP e frete com tratamento de erro e timeout.
+Dia 5: Implementar fluxo de pagamento e cache com Redis.
+Dia 6: Criar testes unitarios, testes de integracao e documentacao Swagger.
+Dia 7: Dockerizar, subir pipeline no GitHub Actions e fazer deploy em cloud.
+
+O que faz esse projeto se destacar
+- Mostra integracao com sistemas externos.
+- Mostra resiliencia de backend real.
+- Mostra banco, cache, seguranca e testes.
+- Mostra deploy e maturidade de entrega.
+- E mais forte para vaga de backend jnr do que outro CRUD isolado.
+
+Prioridade tecnica
+1. Integracao com APIs externas.
+2. Resiliencia e tratamento de falhas.
+3. Persistencia e seguranca.
+4. Cache e testes.
+5. Deploy em cloud.
+
+Resultado esperado no portifolio
+- Projeto com cara de producao.
+- README forte.
+- Fluxo completo documentado.
+- Demonstra capacidade real de backend Java.
