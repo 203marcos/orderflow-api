@@ -1,4 +1,4 @@
-package com.marcosdias.orderflowapi.address;
+package com.marcosdias.orderflowapi.domain.address;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -81,4 +81,5 @@ public class Address {
         return state;
     }
 }
+
 

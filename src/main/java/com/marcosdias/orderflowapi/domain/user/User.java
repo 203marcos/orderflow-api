@@ -1,4 +1,4 @@
-package com.marcosdias.orderflowapi.user;
+package com.marcosdias.orderflowapi.domain.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -69,4 +69,5 @@ public class User {
         return createdAt;
     }
 }
+
 

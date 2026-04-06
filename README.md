@@ -17,6 +17,30 @@ Reference docs:
 - `docs/business-rules.md`
 - `docs/mvp-scope-day1.md`
 
+## Architecture
+
+The project will follow **hexagonal architecture** (ports and adapters).
+
+What that means here:
+- Business rules stay inside the core.
+- Use cases define the application flow.
+- Controllers, database access, and external APIs stay in adapters.
+
+Planned package direction:
+- `domain` for business rules and models
+  - `domain.user`
+  - `domain.order`
+  - `domain.payment`
+  - `domain.address`
+- `application` for use cases and ports
+  - `application.auth.usecase`
+  - `application.auth.port.out`
+  - `application.auth.dto`
+- `adapter.in` for incoming traffic like REST controllers
+- `adapter.out` for outgoing traffic like persistence and external clients
+
+More details: `docs/architecture.md`
+
 ## Why this project
 
 I built this repository to practice backend skills expected in junior Java positions:
@@ -51,6 +75,8 @@ Main enums modeled so far:
 - `OrderStatus`
 - `PaymentMethod`
 - `PaymentStatus`
+
+At the moment, the domain is being prepared to move toward a cleaner core with ports and adapters.
 
 ## Planned API Endpoints (MVP)
 

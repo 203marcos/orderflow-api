@@ -1,4 +1,4 @@
-package com.marcosdias.orderflowapi.order;
+package com.marcosdias.orderflowapi.domain.order;
 
 public enum OrderStatus {
     CREATED,
@@ -8,4 +8,5 @@ public enum OrderStatus {
     DELIVERED,
     CANCELLED
 }
+
 

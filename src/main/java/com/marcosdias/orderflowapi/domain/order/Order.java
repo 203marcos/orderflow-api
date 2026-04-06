@@ -1,7 +1,7 @@
-package com.marcosdias.orderflowapi.order;
+package com.marcosdias.orderflowapi.domain.order;
 
-import com.marcosdias.orderflowapi.address.Address;
-import com.marcosdias.orderflowapi.user.User;
+import com.marcosdias.orderflowapi.domain.address.Address;
+import com.marcosdias.orderflowapi.domain.user.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -110,4 +110,5 @@ public class Order {
         item.setOrder(this);
     }
 }
+
 
