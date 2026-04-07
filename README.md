@@ -1,88 +1,102 @@
 # OrderFlow API
 
-Backend project focused on a realistic order flow: authentication, order lifecycle, external integrations, resilience, and cloud-ready delivery.
+OrderFlow API is a backend project built to practice the kind of code a junior Java developer is expected to write: clear rules, simple structure, security, persistence, and small commits.
 
-## Project Status
+## Project status
 
-Current stage: **Day 1 completed**.
+Current stage: **Day 2 implemented**.
 
 What is already done:
-- Domain model and initial entities.
-- Core business rules and order status transitions.
-- MVP scope definition for the next implementation days.
-- Repository workflow (`main`, `develop`, `feature/*`).
+- Day 1 domain and business rules.
+- Hexagonal package split with `in` and `out`.
+- User persistence port and JPA adapter.
+- Basic JWT authentication flow.
+- Stateless Spring Security setup.
 
 Reference docs:
 - `docs/domain-model.md`
 - `docs/business-rules.md`
 - `docs/mvp-scope-day1.md`
+- `docs/architecture.md`
+
+## Why this project exists
+
+This repository is a study project, but the goal is to keep it close to a real backend job:
+- build around business rules instead of only CRUD,
+- separate application, domain, and infrastructure,
+- use JWT, Spring Security, JPA, and validation,
+- keep the code easy to read for interviews and code reviews.
 
 ## Architecture
 
-The project will follow **hexagonal architecture** (ports and adapters).
+The project follows **hexagonal architecture**.
 
-What that means here:
-- Business rules stay inside the core.
-- Use cases define the application flow.
-- Controllers, database access, and external APIs stay in adapters.
+Simple version:
+- `domain` keeps the business model.
+- `application` keeps use cases and ports.
+- `adapter.in` keeps HTTP and API entry points.
+- `adapter.out` keeps persistence, security integration, and external services.
 
-Planned package direction:
-- `domain` for business rules and models
-  - `domain.user`
-  - `domain.order`
-  - `domain.payment`
-  - `domain.address`
-- `application` for use cases and ports
-  - `application.auth.usecase`
-  - `application.auth.port.out`
-  - `application.auth.dto`
-- `adapter.in` for incoming traffic like REST controllers
-- `adapter.out` for outgoing traffic like persistence and external clients
+### Project structure
 
-More details: `docs/architecture.md`
+```text
+src/main/java/com/marcosdias/orderflowapi
+├── adapter
+│   ├── in
+│   │   └── web
+│   └── out
+│       └── persistence
+│           └── user
+├── application
+│   └── auth
+│       ├── dto
+│       ├── exception
+│       ├── port
+│       └── usecase
+├── domain
+│   ├── address
+│   ├── order
+│   ├── payment
+│   └── user
+└── security
+```
 
-## Why this project
-
-I built this repository to practice backend skills expected in junior Java positions:
-- Building APIs around business rules, not only CRUD.
-- Integrating external services (CEP and shipping).
-- Applying security, persistence, cache, testing, and delivery practices.
-
-## Tech Stack (current repository)
+## Current stack
 
 - Java 21
-- Spring Boot
+- Spring Boot 3
 - Spring Web
 - Spring Security
 - Spring Data JPA
-- Flyway
-- PostgreSQL driver
-- Redis integration
+- H2 for local development
+- PostgreSQL driver for future production setup
+- JWT (jjwt)
 - JUnit 5
 - Gradle Wrapper
 
-## Domain Highlights
+## What the domain covers
 
-Main concepts modeled so far:
+Main concepts:
 - `User`
 - `Address`
 - `Order`
 - `OrderItem`
 - `Payment`
 
-Main enums modeled so far:
+Main enums:
 - `Role`
 - `OrderStatus`
 - `PaymentMethod`
 - `PaymentStatus`
 
-At the moment, the domain is being prepared to move toward a cleaner core with ports and adapters.
+## API endpoints
 
-## Planned API Endpoints (MVP)
-
+### Auth
 - `POST /auth/register`
 - `POST /auth/login`
 - `GET /users/me`
+
+### Planned for the next days
 - `POST /orders`
 - `GET /orders/{id}`
 - `GET /orders`
@@ -91,43 +105,42 @@ At the moment, the domain is being prepared to move toward a cleaner core with p
 - `GET /address/{cep}`
 - `POST /payments/charge`
 
-## Roadmap (7 days)
+## Roadmap
 
-- [x] Day 1: domain, entities, business rules, MVP scope.
-- [ ] Day 2: authentication, user module, JWT security.
+- [x] Day 1: domain, rules, MVP scope.
+- [x] Day 2: auth, JWT, user module, security.
 - [ ] Day 3: order module + PostgreSQL persistence with Flyway.
-- [ ] Day 4: CEP and shipping integrations with timeout/retry/fallback.
+- [ ] Day 4: CEP and shipping integration with timeout/retry/fallback.
 - [ ] Day 5: payment flow + Redis cache.
-- [ ] Day 6: unit/integration tests + Swagger docs.
-- [ ] Day 7: Docker + GitHub Actions + cloud deploy.
+- [ ] Day 6: tests + Swagger.
+- [ ] Day 7: Docker + GitHub Actions + deployment.
 
-## Local Run
-
-At this stage, the project is in foundation mode (Day 1), but the app and tests can run.
+## Local run
 
 ```powershell
 .\gradlew.bat test
 .\gradlew.bat bootRun
 ```
 
-## Git Workflow
+The app now starts with an embedded H2 database, so it runs locally without extra environment variables.
+
+## Git workflow
 
 - `main`: stable branch.
 - `develop`: integration branch.
-- `feature/*`: implementation branches.
+- `feature/*`: branch for each small task.
 
-Default flow:
-1. Create a feature branch from `develop`.
-2. Commit in small units.
-3. Merge into `develop`.
-4. Promote `develop` into `main`.
+Suggested flow:
+1. Branch from `develop`.
+2. Work in small commits.
+3. Merge back into `develop`.
+4. Promote `develop` into `main` when the day is finished.
 
-Commit style:
+Commit style used in this project:
 - `feat: ...`
 - `fix: ...`
 - `docs: ...`
 - `test: ...`
 - `chore: ...`
-- `ci: ...`
 
 
