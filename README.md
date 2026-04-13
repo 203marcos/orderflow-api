@@ -1,146 +1,148 @@
-# OrderFlow API
+OrderFlow API
+Backend Java com foco em padrões de mercado para vaga de Desenvolvedor Java Júnior: arquitetura hexagonal, segurança JWT, persistência relacional, integração externa resiliente, testes automatizados e entrega contínua.
 
-OrderFlow API is a backend project built to practice the kind of code a junior Java developer is expected to write: clear rules, simple structure, security, persistence, and small commits.
+Objetivo do projeto
+Este projeto foi criado para demonstrar competências esperadas em backend Java júnior em ambiente real:
 
-## Project status
+Modelagem de domínio além de CRUD simples
+Separação clara entre domínio, aplicação e infraestrutura
+Segurança stateless com JWT e Spring Security
+Persistência com PostgreSQL e versionamento de schema
+Integrações externas com tratamento de falhas
+Testes automatizados e pipeline de CI
+Status atual
+Etapa atual: Fundações de domínio e autenticação concluídas.
 
-Current stage: **Day 2 implemented**.
+Entregue até agora:
 
-What is already done:
-- Day 1 domain and business rules.
-- Hexagonal package split with `in` and `out`.
-- User persistence port and JPA adapter.
-- Basic JWT authentication flow.
-- Stateless Spring Security setup.
+Regras de negócio iniciais de domínio
+Estrutura baseada em arquitetura hexagonal
+Persistência de usuário com JPA
+Fluxo de autenticação com JWT
+Configuração de segurança stateless
+Arquitetura
+A API segue arquitetura hexagonal para reduzir acoplamento e facilitar evolução.
 
-Reference docs:
-- `docs/domain-model.md`
-- `docs/business-rules.md`
-- `docs/mvp-scope-day1.md`
-- `docs/architecture.md`
+Camadas principais:
 
-## Why this project exists
+Domain: entidades e regras de negócio centrais
+Application: casos de uso e portas
+Adapter In: entrada HTTP (controllers e contratos)
+Adapter Out: persistência, segurança e integrações externas
+Benefícios desta abordagem:
 
-This repository is a study project, but the goal is to keep it close to a real backend job:
-- build around business rules instead of only CRUD,
-- separate application, domain, and infrastructure,
-- use JWT, Spring Security, JPA, and validation,
-- keep the code easy to read for interviews and code reviews.
+Testes mais fáceis em casos de uso
+Troca de tecnologia de infraestrutura com menor impacto
+Código mais legível para review técnico
+Stack
+Java 21
+Spring Boot 3
+Spring Web
+Spring Security
+Spring Data JPA
+PostgreSQL
+Flyway
+JWT
+Bean Validation
+JUnit 5
+Gradle Wrapper
+OpenAPI Swagger
+Docker e Docker Compose
+GitHub Actions
+Domínio coberto
+Conceitos:
 
-## Architecture
+User
+Address
+Order
+OrderItem
+Payment
+Enums:
 
-The project follows **hexagonal architecture**.
+Role
+OrderStatus
+PaymentMethod
+PaymentStatus
+Endpoints
+Autenticação e usuário:
 
-Simple version:
-- `domain` keeps the business model.
-- `application` keeps use cases and ports.
-- `adapter.in` keeps HTTP and API entry points.
-- `adapter.out` keeps persistence, security integration, and external services.
+POST /auth/register
+POST /auth/login
+GET /users/me
+Pedidos:
 
-### Project structure
+POST /orders
+GET /orders/{id}
+GET /orders
+PATCH /orders/{id}/status
+Integrações:
 
-```text
-src/main/java/com/marcosdias/orderflowapi
-├── adapter
-│   ├── in
-│   │   └── web
-│   └── out
-│       └── persistence
-│           └── user
-├── application
-│   └── auth
-│       ├── dto
-│       ├── exception
-│       ├── port
-│       └── usecase
-├── domain
-│   ├── address
-│   ├── order
-│   ├── payment
-│   └── user
-└── security
-```
+GET /address/{cep}
+GET /shipping/quote?cep=xxxxx-xxx
+Pagamento:
 
-## Current stack
+POST /payments/charge
+Qualidade e testes
+Estratégia de testes:
 
-- Java 21
-- Spring Boot 3
-- Spring Web
-- Spring Security
-- Spring Data JPA
-- H2 for local development
-- PostgreSQL driver for future production setup
-- JWT (jjwt)
-- JUnit 5
-- Gradle Wrapper
+Testes unitários para regras de domínio e casos de uso
+Testes de integração para repositórios e fluxos de aplicação
+Testes HTTP para autenticação, autorização e contratos da API
+Testes de segurança para endpoints protegidos
+Coberturas obrigatórias:
 
-## What the domain covers
+Fluxo completo de login e autorização por perfil
+Transições válidas e inválidas de status de pedido
+Regras de ownership em leitura de pedido
+Validações de entrada e resposta de erro padronizada
+Observabilidade e erro
+Padrão de erro único:
 
-Main concepts:
-- `User`
-- `Address`
-- `Order`
-- `OrderItem`
-- `Payment`
+timestamp
+status
+code
+message
+path
+traceId
+Observabilidade:
 
-Main enums:
-- `Role`
-- `OrderStatus`
-- `PaymentMethod`
-- `PaymentStatus`
+Healthcheck
+Métricas básicas
+Logs estruturados por requisição
+Como executar localmente
+Pré-requisitos:
 
-## API endpoints
+JDK 21+
+Docker + Docker Compose
+Fluxo recomendado:
 
-### Auth
-- `POST /auth/register`
-- `POST /auth/login`
-- `GET /users/me`
+Subir PostgreSQL com Docker Compose
+Executar migrations Flyway
+Rodar testes
+Subir aplicação
+Comandos:
 
-### Planned for the next days
-- `POST /orders`
-- `GET /orders/{id}`
-- `GET /orders`
-- `PATCH /orders/{id}/status`
-- `GET /shipping/quote?cep=xxxxx-xxx`
-- `GET /address/{cep}`
-- `POST /payments/charge`
+gradlew.bat test
+gradlew.bat bootRun
+Documentação da API
+Swagger UI: /swagger-ui.html
+OpenAPI JSON: /v3/api-docs
+CI e fluxo de trabalho
+Branches:
 
-## Roadmap
+main: estável
+develop: integração
+feature/nome-da-tarefa: desenvolvimento incremental
+Padrão de commits:
 
-- [x] Day 1: domain, rules, MVP scope.
-- [x] Day 2: auth, JWT, user module, security.
-- [ ] Day 3: order module + PostgreSQL persistence with Flyway.
-- [ ] Day 4: CEP and shipping integration with timeout/retry/fallback.
-- [ ] Day 5: payment flow + Redis cache.
-- [ ] Day 6: tests + Swagger.
-- [ ] Day 7: Docker + GitHub Actions + deployment.
+feat:
+fix:
+docs:
+test:
+chore:
+Pipeline de CI:
 
-## Local run
-
-```powershell
-.\gradlew.bat test
-.\gradlew.bat bootRun
-```
-
-The app now starts with an embedded H2 database, so it runs locally without extra environment variables.
-
-## Git workflow
-
-- `main`: stable branch.
-- `develop`: integration branch.
-- `feature/*`: branch for each small task.
-
-Suggested flow:
-1. Branch from `develop`.
-2. Work in small commits.
-3. Merge back into `develop`.
-4. Promote `develop` into `main` when the day is finished.
-
-Commit style used in this project:
-- `feat: ...`
-- `fix: ...`
-- `docs: ...`
-- `test: ...`
-- `chore: ...`
-
-
+build
+test
+validação de qualidade
+falha obrigatória em caso de regressão
